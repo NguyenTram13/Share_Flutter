@@ -28,16 +28,13 @@ class _PostViewState extends State<PostView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Expanded(
-        child: ListView.builder(
-          itemCount: widget.postList.length,
-          itemBuilder: (context, index) {
-            return FacebookPostCard(post: widget.postList[index]);
-          },
-        ),
-      ),
-    );
+return  Column(
+  mainAxisSize: MainAxisSize.max,
+  children: List.generate(widget.postList.length, (index) {
+    final post = widget.postList[index];
+    return FacebookPostCard(post: post);
+  }),
+);
   }
 }
 
@@ -82,7 +79,7 @@ class FacebookPostCard extends StatelessWidget {
           // const Divider(),
 
           Container(
-            width: 360.0,
+            width: double.infinity,
             height: 30,
             // color: Colors.green,
             padding: EdgeInsets.only(left: 4.0, right: 4.0),

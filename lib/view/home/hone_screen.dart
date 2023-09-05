@@ -18,29 +18,40 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         children: [
           const MainHeader(),
-          SizedBox(height: 8.0),
-          PostCreate(),
-          SizedBox(height: 8.0),
-          StorySlider(),
-          Row(
-            children: [
-              Container(
-                width: 360,
-                height: 10,
-                color: Colors.black26,
-              )
-            ],
+          Container(
+            width: MediaQuery.sizeOf(context).width,
+                height: MediaQuery.sizeOf(context).height * 1,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  
+                  SizedBox(height: 8.0),
+                  PostCreate(),
+                  SizedBox(height: 8.0),
+                  StorySlider(),
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       width: double.infinity,
+                  //       height: 10,
+                  //       color: Colors.black26,
+                  //     )
+                  //   ],
+                  // ),
+                  Obx(() {
+                    if (!homeController.isPostLoading.value) {
+                      return PostView(
+                        postList: homeController.postList,
+                      );
+                    } else {
+                      return const CarouselLoading();
+                    }
+                  }),
+                  SizedBox(height: 8.0),
+                ],
+              ),
+            ),
           ),
-          Obx(() {
-            if (!homeController.isPostLoading.value) {
-              return PostView(
-                postList: homeController.postList,
-              );
-            } else {
-              return const CarouselLoading();
-            }
-          }),
-          SizedBox(height: 8.0),
         ],
       ),
     );
